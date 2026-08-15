@@ -205,7 +205,7 @@
 </div>
 
 <script type="module">
-import { FaceLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+import { FaceLandmarker, FilesetResolver } from "./libs/mediapipe/vision_bundle.mjs";
 
 /* ---------------- utils / log ---------------- */
 const logbox = document.getElementById('logbox');
@@ -248,11 +248,11 @@ const ctx = els.canvas.getContext('2d');
 async function initModel(){
   try{
     const vision = await FilesetResolver.forVisionTasks(
-      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+      "./libs/mediapipe/wasm"
     );
     faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
       baseOptions: {
-        modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+        modelAssetPath: "./libs/mediapipe/face_landmarker.task",
         delegate: "GPU"
       },
       runningMode: "IMAGE",
@@ -689,7 +689,7 @@ els.btnExportAll.addEventListener('click', async () => {
   els.btnExportAll.disabled = true;
   log('Menyiapkan ZIP…');
   try{
-    const jszipMod = await import('https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm');
+    const jszipMod = await import('./libs/jszip/3.10.1/jszip.min.js');
     const JSZip = jszipMod.default;
     const zip = new JSZip();
     for (const p of photos){
